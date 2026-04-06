@@ -17,6 +17,8 @@ pub struct Block {
     pub notes: Option<String>,
     pub pause_time: i64,
     pub interruption_count: i64,
+    pub pushed_to_calendar: bool,
+    pub calendar_event_id: Option<String>,
 }
 
 #[derive(Debug, Clone, Deserialize)]
@@ -173,7 +175,7 @@ pub fn get_blocks(db: State<'_, DbState>) -> Result<Vec<Block>, String> {
 
     let mut stmt = conn
         .prepare(
-            "SELECT id, name, type, start_time, duration, color, notes, pause_time, interruption_count
+            "SELECT id, name, type, start_time, duration, color, notes, pause_time, interruption_count, pushed_to_calendar, calendar_event_id
              FROM blocks
              WHERE date = ?1
              ORDER BY sort_order ASC, start_time ASC",
@@ -192,6 +194,8 @@ pub fn get_blocks(db: State<'_, DbState>) -> Result<Vec<Block>, String> {
                 notes: row.get(6)?,
                 pause_time: row.get(7)?,
                 interruption_count: row.get(8)?,
+                pushed_to_calendar: row.get(9)?,
+                calendar_event_id: row.get(10)?,
             })
         })
         .map_err(|e| e.to_string())?
@@ -247,6 +251,8 @@ pub fn add_block(block: NewBlock, db: State<'_, DbState>) -> Result<Block, Strin
         notes: block.notes,
         pause_time: block.pause_time,
         interruption_count: block.interruption_count,
+        pushed_to_calendar: false,
+        calendar_event_id: None,
     })
 }
 

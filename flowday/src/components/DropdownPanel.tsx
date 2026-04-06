@@ -11,7 +11,7 @@ import * as api from '../utils/api';
 
 export function DropdownPanel() {
   const timer = useTimer();
-  const { blocks, currentBlock, upcomingBlock, addBlock, editBlock, deleteBlock, reorderBlocks, isCreating, isUpdating, isDeleting } = useBlocks();
+  const { blocks, currentBlock, upcomingBlock, addBlock, editBlock, deleteBlock, reorderBlocks, pushBlock, unpushBlock, isCreating, isUpdating, isDeleting } = useBlocks();
   const [isPanelOpen, setIsPanelOpen] = useState(true);
 
   // Modal state
@@ -77,6 +77,8 @@ export function DropdownPanel() {
             onEditBlock={handleEditBlock}
             onDeleteBlock={handleDeleteRequest}
             onReorderBlocks={reorderBlocks}
+            onPushBlock={pushBlock}
+            onUnpushBlock={unpushBlock}
           />
         </div>
 

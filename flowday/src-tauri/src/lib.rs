@@ -6,8 +6,9 @@ use std::path::PathBuf;
 use std::sync::Mutex;
 use tauri::{AppHandle, LogicalSize, Manager, State};
 
-use commands::blocks;
+use commands::{blocks, calendar, google, push};
 use db::DbState;
+use google::GoogleAuthState;
 use timer::{Timer, TimerState};
 
 #[tauri::command]
@@ -74,6 +75,7 @@ pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
         .manage(Timer::new())
+        .manage(GoogleAuthState::new())
         .setup(|app| {
             let db_path = get_db_path(app);
             println!("[flowday] Database path: {:?}", db_path);
@@ -100,6 +102,20 @@ pub fn run() {
             blocks::edit_block,
             blocks::delete_block,
             blocks::reorder_blocks,
+            push::push_block_to_calendar,
+            push::unpush_block_from_calendar,
+            google::google_set_oauth_config,
+            google::google_get_auth_url,
+            google::google_exchange_code,
+            google::google_list_accounts,
+            google::google_remove_account,
+            google::google_is_authenticated,
+            google::google_fetch_events,
+            google::google_create_event,
+            calendar::calendar_sync,
+            calendar::get_calendar_events,
+            calendar::get_conflicts,
+            calendar::get_last_sync_time,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

@@ -8,9 +8,11 @@ interface TimelineProps {
   onEditBlock: (block: Block) => void;
   onDeleteBlock: (id: string) => void;
   onReorderBlocks: (ids: string[]) => void;
+  onPushBlock: (blockId: string) => void;
+  onUnpushBlock: (blockId: string) => void;
 }
 
-export function Timeline({ blocks, activeBlockId, onEditBlock, onDeleteBlock, onReorderBlocks }: TimelineProps) {
+export function Timeline({ blocks, activeBlockId, onEditBlock, onDeleteBlock, onReorderBlocks, onPushBlock, onUnpushBlock }: TimelineProps) {
   const [dragOverId, setDragOverId] = useState<string | null>(null);
   const [draggedId, setDraggedId] = useState<string | null>(null);
 
@@ -83,6 +85,8 @@ export function Timeline({ blocks, activeBlockId, onEditBlock, onDeleteBlock, on
               isActive={block.id === activeBlockId}
               onEdit={onEditBlock}
               onDelete={onDeleteBlock}
+              onPush={onPushBlock}
+              onUnpush={onUnpushBlock}
               draggable
               onDragStart={handleDragStart}
               onDragOver={(e) => handleDragOver(e, block.id)}

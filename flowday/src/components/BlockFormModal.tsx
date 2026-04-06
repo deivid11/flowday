@@ -63,6 +63,8 @@ export function BlockFormModal({ block, onSave, onClose, isSaving }: BlockFormMo
       notes: notes.trim() || undefined,
       pauseTime: block?.pauseTime ?? 0,
       interruptionCount: block?.interruptionCount ?? 0,
+      pushedToCalendar: block?.pushedToCalendar ?? false,
+      calendarEventId: block?.calendarEventId ?? null,
     };
 
     if (isEditing && block) {

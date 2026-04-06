@@ -30,6 +30,8 @@ export function QuickActions({ timer, currentBlock, onAddBlock, onOpenAddForm }:
       color: BLOCK_COLORS.DeepWork,
       pauseTime: 0,
       interruptionCount: 0,
+      pushedToCalendar: false,
+      calendarEventId: null,
     };
     onAddBlock(block);
   };
@@ -43,6 +45,8 @@ export function QuickActions({ timer, currentBlock, onAddBlock, onOpenAddForm }:
       color: BLOCK_COLORS.Reactive,
       pauseTime: 0,
       interruptionCount: 0,
+      pushedToCalendar: false,
+      calendarEventId: null,
     };
     onAddBlock(block);
   };
