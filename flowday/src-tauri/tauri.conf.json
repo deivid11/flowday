@@ -15,7 +15,7 @@
         "title": "FlowDay",
         "label": "main",
         "width": 420,
-        "height": 650,
+        "height": 700,
         "decorations": false,
         "resizable": false,
         "skipTaskbar": true,
@@ -23,7 +23,7 @@
         "alwaysOnTop": true,
         "center": false,
         "x": 1000,
-        "y": 100
+        "y": 80
       }
     ],
     "security": {
